@@ -6,7 +6,7 @@ on:
 
 jobs:
   sqlcheck:
-    name: sqlcheck job
+    name: Lint SQL
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

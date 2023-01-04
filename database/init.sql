@@ -13,7 +13,7 @@ CREATE TABLE student (
 );
 
 CREATE TABLE company (
-    id int
+    company_id serial
     company_name varchar,
     job_role varchar,
     company_contact varchar,
@@ -22,7 +22,7 @@ CREATE TABLE company (
 );
 
 CREATE TABLE system_settings (
-    type varchar,
-    setting varchar CHECK (employment_type IN ('EMAIL_DIRECTORY', 'RESUME_DIRECTORY','INTERNSHIP_PERIOD')),
+    setting_type varchar CHECK (employment_type IN ('EMAIL_DIRECTORY', 'RESUME_DIRECTORY','INTERNSHIP_PERIOD')),
+    value varchar,
     PRIMARY KEY(type)
 );
