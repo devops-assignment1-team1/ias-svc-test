@@ -23,6 +23,6 @@ CREATE TABLE company (
 
 CREATE TABLE system_settings (
     setting_type varchar CHECK (employment_type IN ('EMAIL_DIRECTORY', 'RESUME_DIRECTORY','INTERNSHIP_PERIOD')),
-    value varchar,
+    setting_value varchar,
     PRIMARY KEY(setting_type)
 );
