@@ -1,0 +1,16 @@
+name: Lint SQL
+on:
+  pull_request:
+    paths:
+      - "sql/**"
+
+jobs:
+  sqlcheck:
+    name: sqlcheck job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: yokawasa/action-sqlcheck@v1.4.0
+        with:
+          verbose: true
+          token: ${{ secrets.GITHUB_TOKEN }}
