@@ -2,7 +2,7 @@ name: Lint SQL
 on:
   pull_request:
     paths:
-      - "sql/**"
+      - "database/**"
 
 jobs:
   sqlcheck:
