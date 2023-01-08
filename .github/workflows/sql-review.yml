@@ -1,0 +1,18 @@
+name: SQL Review
+on:
+  pull_request:
+    paths:
+      - "database/**"
+
+jobs:
+  sql-review:
+    runs-on: ubuntu-latest
+    name: SQL Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check SQL
+        uses: bytebase/sql-review-action@main
+        with:
+          override-file-path: /database/tests/bb.sql-review.yml
+          database-type: MYSQL
+          file-pattern: /database/init/*.sql
