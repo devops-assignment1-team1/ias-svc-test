@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins&display=swap');
+
+/* Initialise colors and fonts */
+:root{
+  --primary-color: #fff;
+  --secondary-color: #333;
+  --semidark-color:rgb(246 246 246);
+  --app-color: #EFEEEA;
+
+  --primary-font: 'Poppins', sans-serif;
+  --secondary-font :'Montserrat', sans-serif;
+}
+
+hr{
+  margin: 0.5rem 0;
+}
+
+.App{
+  background-color: var(--app-color);
+}
