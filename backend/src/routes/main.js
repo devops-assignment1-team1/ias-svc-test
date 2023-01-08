@@ -1,0 +1,1 @@
+//main will store the homepage and the start of everything start with root / 
