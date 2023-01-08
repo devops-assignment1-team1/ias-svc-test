@@ -15,4 +15,4 @@ jobs:
         with:
           override-file-path: database/tests/bb.sql-review.yml
           database-type: MYSQL
-          file-pattern: database/init/*.sql
+          file-pattern: ^database/init/.*\.sql$
