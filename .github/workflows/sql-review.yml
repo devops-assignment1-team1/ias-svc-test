@@ -12,11 +12,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set up Docker Network
         run: docker network create -d bridge ias_net
-      - name: CD into Database
-        run: cd database && ls
-      - name: LS into Database
-        run: ls
       - name: Build the Docker image
-        run: docker-compose up -d --build -f database/docker-compose.yml && docker container ls
+        run: |
+          cd database
+          docker-compose up -d --build -f database/docker-compose.yml
+          docker container ls
       - name: Unit Test (Student)
         run: docker exec -it database-db-1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
