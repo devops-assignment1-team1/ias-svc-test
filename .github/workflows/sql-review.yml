@@ -24,5 +24,5 @@ jobs:
             sleep 5
           done
           sleep 5
-          cat "100"
+          echo "100"
           docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;"
