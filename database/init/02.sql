@@ -1,6 +1,6 @@
 -- Insert Sample Data
 INSERT INTO student(student_id, name, preference, status) VALUES
-("S12345670W", "Student 1", "Software Development", "UNASSIGNED"),
+("S12345670A", "Student 1", "Software Development", "UNASSIGNED"),
 ("S12345671B", "Student 2", "System Development", "UNASSIGNED"),
 ("S12345672C", "Student 3", "Software Engineering, Development", "UNASSIGNED"),
 ("S12345673D", "Student 4", "IOS and Android Development", "UNASSIGNED"),
