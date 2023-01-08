@@ -1,6 +1,6 @@
 # This file is generated on https://www.bytebase.com/sql-review-guide#bb.sql-review.prod
 # You can use it with the SQL Review Action https://github.com/marketplace/actions/sql-review
-template: bb.sql-review
+template: database/tests/bb.sql-review
 ruleList:
   - type: engine.mysql.use-innodb # Doc: https://www.bytebase.com/docs/sql-review/review-rules/supported-rules#engine.mysql.use-innodb
     level: ERROR
