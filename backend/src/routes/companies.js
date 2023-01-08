@@ -24,6 +24,8 @@ router.get('/', (req, res) => {
         if (error) throw error
         console.log('Connected!')
 
+        // test
+        
         con.query('SELECT * FROM company', (error, results) => {
             if (error) throw error
             res.send(results)
