@@ -24,4 +24,9 @@ jobs:
             sleep 5
           done
           sleep 5
-          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;"
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;" | grep -q "S12345670A"
+          if [ $? -eq 0 ]; then
+            echo "Pattern found"
+          else
+            echo "Pattern not found"
+          fi
