@@ -17,6 +17,8 @@ router.use((req, res, next) => {
     next()
 })
 
+router.use(express.json())
+
 router.get('/', (req, res) => {
     con.connect(error => {
         if (error) throw error
