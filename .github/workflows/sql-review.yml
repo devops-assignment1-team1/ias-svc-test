@@ -20,8 +20,5 @@ jobs:
       - name: Unit Test (Student)
         run: |
           cd database
-          while ! docker-compose logs | grep "ready for connections"; do
-            echo "Waiting for initdb to complete..."
-            sleep 5
-          done
+          sleep 30
           docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;"
