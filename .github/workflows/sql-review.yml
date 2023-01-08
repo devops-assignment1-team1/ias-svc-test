@@ -13,7 +13,7 @@ jobs:
       - name: Set up Docker Network
         run: docker network create -d bridge ias_net
       - name: CD into Database
-        run: cd database
+        run: cd database && ls
       - name: Build the Docker image
         run: docker-compose up -d --build && docker container ls
       - name: Unit Test (Student)
