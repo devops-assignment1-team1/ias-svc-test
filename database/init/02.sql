@@ -5,7 +5,7 @@ INSERT INTO student(student_id, name, preference, status) VALUES
 ("S12345672C", "Student 3", "Software Engineering, Development", "UNASSIGNED"),
 ("S12345673D", "Student 4", "IOS and Android Development", "UNASSIGNED"),
 ("S12345674E", "Student 5", "Documents, QA Testing and Development", "UNASSIGNED"),
-("S12345675F", "Student 6", "Software Engineering, Development", "UNASSIGNED")
+("S12345675F", "Student 6", "Software Engineering, Development", "UNASSIGNED"),
 ("S12345676G", "Student 7", "IOS and Android Development", "UNASSIGNED");
 
 INSERT INTO company(company_name, job_role, company_contact, email) VALUES
