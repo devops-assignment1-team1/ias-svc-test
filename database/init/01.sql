@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS system_settings;
 
 -- Create Tables
 CREATE TABLE student (
-    student_id int,
+    student_id varchar(10),
     name text,
     preference text,
     status text,
