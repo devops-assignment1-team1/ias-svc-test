@@ -15,10 +15,8 @@ jobs:
       - name: Build the Docker image
         run: |
           cd database
-          docker-compose up --build -d
-          docker container ls
+          docker-compose up --build -d --wait
       - name: Unit Test (Student)
         run: |
           cd database
-          sleep 30
           docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;"
