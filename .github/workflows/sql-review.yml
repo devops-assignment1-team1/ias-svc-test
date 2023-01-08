@@ -18,4 +18,9 @@ jobs:
           docker-compose up --build -d
           docker container ls
       - name: Unit Test (Student)
-        run: docker exec database_db_1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
+        run: |
+          while ! mysqladmin ping -h localhost -u ${MYSQL_USER} -p${MYSQL_PASSWORD}; do
+            echo "Wait ..."
+            sleep 1
+          done
+          docker exec database_db_1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
