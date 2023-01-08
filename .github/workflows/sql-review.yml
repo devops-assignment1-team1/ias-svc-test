@@ -19,8 +19,8 @@ jobs:
           docker container ls
       - name: Unit Test (Student)
         run: |
-          while ! mysqladmin ping -h localhost -u"root" -p"password"; do
-            echo "Wait ..."
-            sleep 5
+          while ! docker-compose logs mysql | grep "ready for connections"; do
+            echo "Waiting for initdb to complete..."
+            sleep 1
           done
           docker exec database_db_1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
