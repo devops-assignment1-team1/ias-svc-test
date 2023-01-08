@@ -21,6 +21,6 @@ jobs:
         run: |
           while ! docker-compose logs mysql | grep "ready for connections"; do
             echo "Waiting for initdb to complete..."
-            sleep 1
+            sleep 5
           done
           docker exec database_db_1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
