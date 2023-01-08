@@ -13,6 +13,8 @@ jobs:
       - name: Set up Docker Network
         run: docker network create -d bridge ias_net
       - name: CD into Database
+        run: cd database && ls
+      - name: LS into Database
         run: ls
       - name: Build the Docker image
         run: docker-compose up -d --build -f database/docker-compose.yml && docker container ls
