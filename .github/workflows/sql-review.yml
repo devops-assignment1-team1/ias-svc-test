@@ -28,3 +28,15 @@ jobs:
           if [ $? -ne 0 ]; then
             exit 1
           fi
+      - name: Unit Test (Company)
+        run: |
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM company;" | grep -q "Company A"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: Unit Test (System Settings)
+        run: |
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM system_settings;" | grep -q "EMAIL_DIRECTORY"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
