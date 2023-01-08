@@ -13,6 +13,6 @@ jobs:
       - name: Check SQL
         uses: bytebase/sql-review-action@main
         with:
-          override-file-path: /database/tests/bb.sql-review.yml
+          override-file-path: database/tests/bb.sql-review.yml
           database-type: MYSQL
-          file-pattern: /database/init/*.sql
+          file-pattern: database/init/*.sql
