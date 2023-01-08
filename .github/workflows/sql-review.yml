@@ -10,9 +10,9 @@ jobs:
     name: SQL Review
     steps:
       - uses: actions/checkout@v3
-      - name: Check SQL
-        uses: bytebase/sql-review-action@main
-        with:
-          override-file-path: database/tests/bb.sql-review.dev.yml
-          database-type: MYSQL
-          file-pattern: ^database/init/.*\.sql$
+      - name: Set up Docker Network
+        run: docker network create -d bridge ias_net
+      - name: Build the Docker image
+        run: docker-compose up -d --build
+      - name: Unit Test (Student)
+        run: docker exec -it database-db-1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
