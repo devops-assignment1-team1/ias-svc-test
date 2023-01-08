@@ -15,7 +15,7 @@ jobs:
       - name: Build the Docker image
         run: |
           cd database
-          docker-compose up -d --build -f database/docker-compose.yml
+          docker-compose up --build -d
           docker container ls
       - name: Unit Test (Student)
         run: docker exec -it database-db-1 mysql -u"root" -p"password" -D "db" -e "SELECT * FROM student;"
