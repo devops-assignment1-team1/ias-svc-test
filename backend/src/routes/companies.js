@@ -6,9 +6,9 @@ const XLSX = require('xlsx')
 const mysql = require('mysql2')
 const con = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    user: 'user',
     password: 'password',
-    database: 'ias'
+    database: 'db'
 })
 
 // middleware
