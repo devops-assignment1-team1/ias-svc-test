@@ -19,3 +19,7 @@ INSERT INTO system_settings(setting_type) VALUES
 ("RESUME_DIRECTORY"),
 ("INTERNSHIP_PERIOD");
 
+INSERT INTO student(student_id, name, preference, status, company_id) VALUES
+("S12345677H", "Student 8", "Software Development", "PENDING_CONFIRMATION", 1),
+("S12345678I", "Student 9", "Documents, QA Testing and Development", "CONFIRMED", 2);
+
