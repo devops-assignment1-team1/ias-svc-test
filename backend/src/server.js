@@ -14,7 +14,10 @@ app.use('/api/v1/students', studentRouter)
 const companyRouter = require('./routes/companies')
 app.use('/api/v1/companies', companyRouter)
 
-//Running backend on port 5222
+// router for settings
+const settingsRouter = require('./routes/settings')
+app.use('/api/v1/settings', settingsRouter)
+
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
