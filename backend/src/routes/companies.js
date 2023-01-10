@@ -3,7 +3,7 @@ const router = express.Router()
 
 const XLSX = require('xlsx')
 
-const mysql = require('mysql')
+const mysql = require('mysql2')
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'user',
@@ -29,7 +29,6 @@ router.get('/', (req, res) => {
             res.send(results)
         })
     })
-    con.end()
 })
 
 router.post('/upload', (req, res) => {
@@ -49,7 +48,6 @@ router.post('/upload', (req, res) => {
                 if (error) throw error
             })
         });
-        con.end()
     })
 })
 
