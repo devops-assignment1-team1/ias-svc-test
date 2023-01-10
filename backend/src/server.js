@@ -7,7 +7,7 @@ app.get('/api/v1', (req, res) => {
 })
 
 // router for students
-const studentRouter = require("./routes/student")
+const studentRouter = require("./routes/students")
 app.use('/api/v1/students', studentRouter)
 
 // router for companies
