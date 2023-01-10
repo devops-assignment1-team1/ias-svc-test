@@ -20,7 +20,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 function App() {
   return (
     <div className="App">
-      <Router>
         <div className="App d-flex">
 
           <div style={{ flex: "1 1 auto", display: "flex", flexFlow: "column", overflowY: "hidden" }}>
@@ -45,7 +44,6 @@ function App() {
 
         {/* Footer */}
         <Footer />
-      </Router>
     </div>
   );
 }

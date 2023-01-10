@@ -1,10 +1,15 @@
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
+import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+import { createMemoryHistory } from 'history';
 import App from '../../App';
 
 test('Render footer', async () => {
   // ARRANGE
-  const screen = render(<App />);
+  const screen = render(<MemoryRouter> initialEntries={['/Main']}
+    <App />
+    </MemoryRouter>);
 
   // ASSERT
   const footer = screen.container.querySelector('#footer');
@@ -14,21 +19,30 @@ test('Render footer', async () => {
 
 test('Render navbar', async () => {
   // ARRANGE
-  const screen = render(<App />);
+  const screen = render(<MemoryRouter> initialEntries={['/Main']}
+    <App />
+    </MemoryRouter>);
 
   // ASSERT
-  const navLinks = screen.container.querySelector('.navbar-nav').childElementCount;
-  expect(navLinks).toEqual(4);
+  const navBarLogo = screen.container.querySelector('.navbar-brand');
+  expect(navBarLogo).toHaveTextContent("IAS");
+  const navLinks = screen.container.querySelector('.navbar-nav');
+  expect(navLinks.childElementCount).toEqual(4);
+  expect(navLinks).toHaveTextContent("UPLOAD MATCH STUDENTS PREPARE EMAILS SETTINGS")
 })
 
-// test('Upload navbar routing', async () => {
-//   // ARRANGE
-//   const screen = render(<App />)
+//TOOD:: Routing tests
 
-//   // ACT
-//   await userEvent.click(screen.getByText('UPLOAD'))
+test('Navbar Routing', async () => {
+  // ARRANGE
+  render(<MemoryRouter> initialEntries={['/Main']}
+  <App />
+  </MemoryRouter>)
 
-//   // ASSERT
-//   expect(screen.getByRole('heading')).toHaveTextContent('hello there')
-//   expect(screen.getByRole('button')).toBeDisabled()
-// })
+  // ACT
+  const user = userEvent.setup()
+  await user.click(screen.getByText('UPLOAD'))
+
+  // ASSERT
+  expect(screen.getByText('Upload Data')).toBeInTheDocument()
+})
