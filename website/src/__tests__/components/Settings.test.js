@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Settings from '../../pages/Settings';
+import { Button } from 'bootstrap';
 
 test('Render title', async () => {
   // ARRANGE
@@ -39,6 +40,24 @@ test('Render resume directory header', async () => {
   expect(resumeHeader).toHaveTextContent('Resume Directory');
 })
 
+test('Render file directory fields', async () => {
+  // ARRANGE
+  const screen = render(<Settings />);
+
+  // ASSERT
+  const fileDirectoryFields = screen.getAllByText('File Directory')
+  expect(fileDirectoryFields.length).toBe(2)
+})
+
+test('Render update directory buttons', async () => {
+  // ARRANGE
+  const screen = render(<Settings />);
+
+  // ASSERT
+  const updateDirectoryButtons = screen.getAllByText('UPDATE DIRECTORY')
+  expect(updateDirectoryButtons.length).toBe(2)
+})
+
 test('Render internship period header', async () => {
   // ARRANGE
   const screen = render(<Settings />);
@@ -48,16 +67,22 @@ test('Render internship period header', async () => {
   expect(internshipHeader).toHaveTextContent('Internship Period');
 })
 
+test('Render internship period field', async () => {
+  // ARRANGE
+  const screen = render(<Settings />);
 
-// test('Render Title', async () => {
-//   // ARRANGE
-//   render(<Settings />)
+  // ASSERT
+  const internshipPeriodField = screen.getByText('DD/MM/YYYY - DD/MM/YYYY')
+  expect(internshipPeriodField).toBeVisible()
+})
 
-//   // ACT
-//   await userEvent.click(screen.getByText('Load Greeting'))
-//   await screen.findByRole('heading')
+test('Render update period button', async () => {
+  // ARRANGE
+  const screen = render(<Settings />);
 
-//   // ASSERT
-//   expect(screen.getByRole('heading')).toHaveTextContent('hello there')
-//   expect(screen.getByRole('button')).toBeDisabled()
-// })
+  // ASSERT
+  const updatePeriodButton = screen.getByRole('button',{name:'UPDATE PERIOD'})
+  expect(updatePeriodButton).toBeVisible()
+})
+
+//TODO:: Functional tests
