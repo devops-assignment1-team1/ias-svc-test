@@ -94,7 +94,7 @@ function Settings() {
         fetch(PORT + "/api/v1/settings", requestOptions)
           .then(response => response.text())
           .then(result => toast.success("Successfully Updated Settings"))
-          .catch(error => toast.error("Failes Updating Settings"));
+          .catch(error => toast.error("Failed Updating Settings"));
     }
 
     // Disabled state 
