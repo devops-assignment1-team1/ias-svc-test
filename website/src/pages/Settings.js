@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import PORT from "../conn";
 
 // Import components
 import toast from 'react-hot-toast';
@@ -73,7 +74,27 @@ function Settings() {
         setInternshipPeriod("DD/MM/YYYY - DD/MM/YYYY");
         setEmailPath("File Directory");
         setResumePath("File Directory");
-        toast.success("Successfully Updated Settings");
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify({
+          "email_dir": emailPath,
+          "resume_dir": resumePath,
+          "internship_period": internshipPeriod
+        });
+        
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        
+        fetch(PORT + "/api/v1/settings", requestOptions)
+          .then(response => response.text())
+          .then(result => toast.success("Successfully Updated Settings"))
+          .catch(error => toast.error("Failes Updating Settings"));
     }
 
     // Disabled state 
@@ -88,8 +109,7 @@ function Settings() {
             }
         }
         handleDisabledSave();
-    }, [internshipPeriod, emailPath, resumePath])
-    
+    }, [internshipPeriod, emailPath, resumePath]);
 
     return (
         <div style={{paddingTop:"80px",paddingLeft:"50px",textAlign:"initial"}} className="container-fluid m-0">
