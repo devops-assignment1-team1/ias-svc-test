@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require("../routes/student");
+const app = require("../routes/students");
 
 describe('student test suite', () => {
     test('tests /student endpoints', async() => {
