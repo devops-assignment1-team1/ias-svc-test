@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1673407907793" clover="3.2.0">
-  <project timestamp="1673407907793" name="All files">
-    <metrics statements="19" coveredstatements="18" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="4" elements="28" coveredelements="24" complexity="0" loc="19" ncloc="19" packages="1" files="1" classes="1"/>
+<coverage generated="1673577793747" clover="3.2.0">
+  <project timestamp="1673577793747" name="All files">
+    <metrics statements="38" coveredstatements="28" conditionals="12" coveredconditionals="4" methods="10" coveredmethods="7" elements="60" coveredelements="39" complexity="0" loc="38" ncloc="38" packages="1" files="1" classes="1"/>
     <file name="students.js" path="C:\Users\Linco\Documents\Ngee Ann Bs\Year 3 sem 2\DevOps\assignment\ias-svc\backend\src\routes\students.js">
-      <metrics statements="19" coveredstatements="18" conditionals="4" coveredconditionals="2" methods="5" coveredmethods="4"/>
+      <metrics statements="38" coveredstatements="28" conditionals="12" coveredconditionals="4" methods="10" coveredmethods="7"/>
       <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
       <line num="7" count="1" type="stmt"/>
       <line num="15" count="1" type="stmt"/>
-      <line num="16" count="1" type="stmt"/>
-      <line num="17" count="1" type="stmt"/>
+      <line num="16" count="2" type="stmt"/>
+      <line num="17" count="2" type="stmt"/>
       <line num="22" count="1" type="stmt"/>
       <line num="23" count="1" type="stmt"/>
       <line num="24" count="1" type="cond" truecount="1" falsecount="1"/>
       <line num="25" count="1" type="stmt"/>
       <line num="27" count="1" type="stmt"/>
-      <line num="28" count="1" type="stmt"/>
-      <line num="29" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="28" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="29" count="1" type="stmt"/>
       <line num="30" count="1" type="stmt"/>
-      <line num="31" count="1" type="stmt"/>
-      <line num="37" count="0" type="stmt"/>
-      <line num="39" count="1" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="38" count="1" type="stmt"/>
+      <line num="39" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="40" count="1" type="stmt"/>
       <line num="41" count="1" type="stmt"/>
+      <line num="42" count="1" type="stmt"/>
+      <line num="43" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="53" count="0" type="stmt"/>
+      <line num="55" count="0" type="stmt"/>
+      <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="58" count="0" type="stmt"/>
+      <line num="59" count="0" type="stmt"/>
+      <line num="60" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="61" count="0" type="stmt"/>
+      <line num="62" count="0" type="stmt"/>
+      <line num="63" count="0" type="stmt"/>
+      <line num="71" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
