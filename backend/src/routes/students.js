@@ -25,7 +25,6 @@ router.get('/', (req, res) => {
         console.log('Connected!')
 
         con.query('SELECT * FROM student', (error, results) => {
-            console.log("hi!")
             if (error) throw error
             res.send(results) 
             return
@@ -33,9 +32,40 @@ router.get('/', (req, res) => {
     })
 })
 
-function sum(a, b) {
-    return a + b;
-  }
-module.exports = sum;
+router.post('/newstudent', async (req, res) => {
+    //const { studentid, name,preference,status,company_id } = req.body
+    console.log("passing")
+    con.connect(error => {
+        if (error) throw error
+        console.log('Connected!')
+            const query = "INSERT INTO student (student_id,name,preference,status,company_id) VALUES(?,?,?,?,?)" 
+            con.query(query, ["s10205479","lincoln","Software","UNASSIGNED", null], (error, result) => {
+                if (error) throw error
+                console.log("test")
+                res.send(result)
+                return
+            })
+
+    })
+})
+
+router.delete('/deleteStudent', async (req, res) => {
+    const { studentid, name,preference,status,company_id } = req.body
+  
+    con.connect(error => {
+        if (error) throw error
+        console.log('Connected!')
+            const query = "DELETE FROM student WHERE student_id = 's10205479'" 
+            con.query(query, ["s10205479"], (error, result) => {
+                if (error) throw error
+                console.log("hi")
+                res.send(result)
+                return
+            })
+
+    })
+})
+
+
 
 module.exports = router
