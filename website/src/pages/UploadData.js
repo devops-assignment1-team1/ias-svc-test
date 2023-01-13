@@ -21,24 +21,33 @@ function UploadData() {
   // Init form data to store files
   const [formData, setFormData] = useState(new FormData())
 
-  // Init states for files
-  const [studentFile, setStudentFile] = useState({
-    file: null,
-    name: '',
-    size: '',
-    type: '',
-  });
 
-  const [companyFile, setCompanyFile] = useState({
-    file: null,
-    name: '',
-    size: '',
-    type: '',
-  });
+  // file change when user selects file
+  const handleStudentFileChange = (event, key) => {
+    formData.append(key, event.target.files[0])
+    setFormData(formData)
+    setStudentFileName(event.target.files[0].name)
+  }
 
-  const handleFileChange = (event) => {
-    setFormData(formData.append('file', event.target.files[0]))
-    console.log(formData.getAll('file'))
+  const handleCompanyFileChange = (event, key) => {
+    formData.append(key, event.target.files[0])
+    setFormData(formData)
+    setCompanyFileName(event.target.files[0].name)
+  }
+
+  const [studentFileName, setStudentFileName] = useState("")
+  const [companyFileName, setCompanyFileName] = useState("")
+
+  // file inputs 
+  const studentFileInput = React.createRef()
+  const companyFileInput = React.createRef()
+
+  const handleConfirmStudentFile = (event) => {
+    handleStudentFileChange(event, 'student-file')
+  }
+
+  const handleConfirmCompanyFile = (event) => {
+    handleCompanyFileChange(event, 'company-file')
   }
 
   // Student file show/hide handler +
@@ -55,46 +64,38 @@ function UploadData() {
     setShowCompanyFile(false);
   };
 
-  const handleConfirmStudentFile = () => {
-    handleFileChange()
-  }
+  // // Toast, reset states, upsert data
+  // function handleSave() {
+  //   setStudentFile(null);
+  //   setCompanyFile(null);
 
-  const handleConfirmCompanyFile = () => {
-    handleFileChange()
-  }
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "multipart/form-data");
 
-  // Toast, reset states, upsert data
-  function handleSave() {
-    setStudentFile(null);
-    setCompanyFile(null);
+  //   var requestOptions = {
+  //     method: 'POST',
+  //     headers: myHeaders,
+  //     body: formData,
+  //     redirect: 'follow'
+  //   };
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+  //   fetch(PORT + "/api/v1/settings", requestOptions)
+  //     .then(response => response.text())
+  //     .then(result => toast.success("Successfully Updated Settings"))
+  //     .catch(error => toast.error("Failed Updating Settings"));
+  // }
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formData,
-      redirect: 'follow'
-    };
-
-    fetch(PORT + "/api/v1/settings", requestOptions)
-      .then(response => response.text())
-      .then(result => toast.success("Successfully Updated Settings"))
-      .catch(error => toast.error("Failed Updating Settings"));
-  }
-
-  // Disabled state 
-  useEffect(() => {
-    const handleDisabledSave = () => {
-      if (formData.getAll('file').length === 0) {
-        setDisabled(true);
-      } else {
-        setDisabled(false);
-      }
-    }
-    handleDisabledSave();
-  }, [studentFile.file, companyFile.file]);
+  // // Disabled state 
+  // useEffect(() => {
+  //   const handleDisabledSave = () => {
+  //     if (formData.getAll('file').length === 0) {
+  //       setDisabled(true);
+  //     } else {
+  //       setDisabled(false);
+  //     }
+  //   }
+  //   handleDisabledSave();
+  // }, [studentFile.file, companyFile.file]);
 
   return (
     <div style={{ paddingTop: "80px", paddingLeft: "50px", textAlign: "initial" }} className="container-fluid m-0">
@@ -105,10 +106,10 @@ function UploadData() {
           <p>Upload the corresponding excel files for the current semester here.</p>
         </div>
 
-        {/* Save Changes */}
+        {/* Save Changes
         <div className="col justify-content-center align-self-center" style={{ textAlign: "end", paddingRight: "50px" }}>
           <Button id="save-btn" variant="dark" style={{ padding: "15px 30px" }} disabled={isDisabled} onClick={handleSave}>SAVE CHANGES</Button>
-        </div>
+        </div> */}
       </div>
       <hr />
 
@@ -119,7 +120,7 @@ function UploadData() {
         <div className="row">
           {/* Text */}
           <Card body className="col-9" style={{ fontSize: "20px" }}>
-            <BiFolderOpen /> {studentFile.file}
+            <BiFolderOpen /> {studentFileName}
           </Card>
 
           {/* Button to Upload */}
@@ -136,7 +137,7 @@ function UploadData() {
         <div className="row">
           {/* Text */}
           <Card body className="col-9" style={{ fontSize: "20px" }}>
-            <BiFolderOpen /> {companyFile.file}
+            <BiFolderOpen /> {companyFileName}
           </Card>
 
           {/* Button to Upload */}
@@ -155,7 +156,7 @@ function UploadData() {
 
         {/* Body with input */}
         <Modal.Body>
-          <input type="file" defaultValue={studentFile.file} onChange={handleFileChange}/>
+          <input type="file" defaultValue={studentFileName} ref={studentFileInput} onChange={handleStudentFileChange}/>
         </Modal.Body>
 
         {/* Confirm selection button */}
@@ -175,7 +176,7 @@ function UploadData() {
 
         {/* Body with input */}
         <Modal.Body>
-          <input type="file" defaultValue={companyFile.file} onChange={handleFileChange}/>
+          <input type="file" defaultValue={companyFileName} ref={companyFileInput} onChange={handleCompanyFileChange}/>
         </Modal.Body>
 
         {/* Confirm selection button */}
