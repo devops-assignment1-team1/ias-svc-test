@@ -24,9 +24,10 @@ function UploadData() {
 
   // file change when user selects file
   const handleStudentFileChange = (event, key) => {
-    formData.append(key, event.target.files[0])
+    formData.append(key, event)
     setFormData(formData)
-    setStudentFileName(event.target.files[0].name)
+    console.log(formData)
+    setStudentFileName(event.name)
   }
 
   const handleCompanyFileChange = (event, key) => {
@@ -43,7 +44,9 @@ function UploadData() {
   const companyFileInput = React.createRef()
 
   const handleConfirmStudentFile = (event) => {
-    handleStudentFileChange(event, 'student-file')
+    var input = document.getElementById('StudentUploadFile')
+    console.log(input.files[0]);
+    handleStudentFileChange(input.files[0], 'student-file')
   }
 
   const handleConfirmCompanyFile = (event) => {
@@ -156,7 +159,7 @@ function UploadData() {
 
         {/* Body with input */}
         <Modal.Body>
-          <input type="file" defaultValue={studentFileName} ref={studentFileInput} onChange={handleStudentFileChange}/>
+          <input id='StudentUploadFile' type="file" defaultValue={studentFileName} ref={studentFileInput}/>
         </Modal.Body>
 
         {/* Confirm selection button */}
