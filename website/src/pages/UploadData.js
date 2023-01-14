@@ -121,10 +121,10 @@ function UploadData() {
           <p>Upload the corresponding excel files for the current semester here.</p>
         </div>
 
-        {/* Save Changes
+        {/* Save Changes */}
         <div className="col justify-content-center align-self-center" style={{ textAlign: "end", paddingRight: "50px" }}>
           <Button id="save-btn" variant="dark" style={{ padding: "15px 30px" }} disabled={isDisabled} onClick={handleSave}>SAVE CHANGES</Button>
-        </div> */}
+        </div>
       </div>
       <hr />
 
