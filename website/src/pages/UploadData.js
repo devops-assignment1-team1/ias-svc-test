@@ -26,14 +26,15 @@ function UploadData() {
   const handleStudentFileChange = (event, key) => {
     formData.append(key, event)
     setFormData(formData)
-    console.log(formData)
     setStudentFileName(event.name)
+    handleCloseStudentFile()
   }
 
   const handleCompanyFileChange = (event, key) => {
-    formData.append(key, event.target.files[0])
+    formData.append(key, event)
     setFormData(formData)
-    setCompanyFileName(event.target.files[0].name)
+    setCompanyFileName(event.name)
+    handleCloseCompanyFile()
   }
 
   const [studentFileName, setStudentFileName] = useState("")
@@ -50,43 +51,54 @@ function UploadData() {
   }
 
   const handleConfirmCompanyFile = (event) => {
-    handleCompanyFileChange(event, 'company-file')
+    var input = document.getElementById('CompanyUploadFile')
+    console.log(input.files[0]);
+    handleCompanyFileChange(input.files[0], 'company-file')
   }
 
   // Student file show/hide handler +
   // Student file text update
-  const handleStudentClick = () => setShowStudentFile(true);
+  const handleStudentClick = () => {
+    setShowStudentFile(true);
+    setStudentFileName("")
+    setFormData(new FormData())
+  }
+
   const handleCloseStudentFile = () => {
     setShowStudentFile(false);
   };
 
   // Company file show/hide handler +
   // Company file text update
-  const handleCompanyClick = () => setShowCompanyFile(true);
+  const handleCompanyClick = () => {
+    setShowCompanyFile(true);
+    setCompanyFileName("")
+    setFormData(new FormData())
+  }
   const handleCloseCompanyFile = () => {
     setShowCompanyFile(false);
   };
 
-  // // Toast, reset states, upsert data
-  // function handleSave() {
-  //   setStudentFile(null);
-  //   setCompanyFile(null);
+  // Toast, reset states, upsert data
+  function handleSave() {
+    // setStudentFile(null);
+    // setCompanyFile(null);
 
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "multipart/form-data");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "multipart/form-data");
 
-  //   var requestOptions = {
-  //     method: 'POST',
-  //     headers: myHeaders,
-  //     body: formData,
-  //     redirect: 'follow'
-  //   };
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formData,
+      redirect: 'follow'
+    };
 
-  //   fetch(PORT + "/api/v1/settings", requestOptions)
-  //     .then(response => response.text())
-  //     .then(result => toast.success("Successfully Updated Settings"))
-  //     .catch(error => toast.error("Failed Updating Settings"));
-  // }
+    fetch(PORT + "/api/v1/settings", requestOptions)
+      .then(response => response.text())
+      .then(result => toast.success("Successfully Updated Settings"))
+      .catch(error => toast.error("Failed Updating Settings"));
+  }
 
   // // Disabled state 
   // useEffect(() => {
@@ -179,7 +191,7 @@ function UploadData() {
 
         {/* Body with input */}
         <Modal.Body>
-          <input type="file" defaultValue={companyFileName} ref={companyFileInput} onChange={handleCompanyFileChange}/>
+          <input id='CompanyUploadFile' type="file" defaultValue={companyFileName} ref={companyFileInput} />
         </Modal.Body>
 
         {/* Confirm selection button */}
