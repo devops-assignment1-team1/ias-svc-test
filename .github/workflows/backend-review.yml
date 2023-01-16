@@ -10,16 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Backend Review
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js v16.13.1
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.13.1
       - run: |
           cd backend
           npm install
