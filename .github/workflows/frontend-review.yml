@@ -20,11 +20,9 @@ jobs:
         with:
           node-version: 16.13.1
       - name: Install Node Packages
-        run: |
-          npm install
+        run: npm install
       - name: Run Jest
-        run: |
-          npm test
+        run: npm test
       - name: Show file
         run: ls coverage
       - name: Publish Test Results
@@ -32,7 +30,8 @@ jobs:
         if: always()
         with:
           junit_files: "junit.xml"
-      - uses: actions/upload-artifact@v3
+      - name: Upload Artifect
+        uses: actions/upload-artifact@v3
         with:
           name: test_report
           path: junit.xml
