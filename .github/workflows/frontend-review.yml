@@ -25,8 +25,8 @@ jobs:
       - name: Run Jest
         run: |
           npm test
-      - name: ls
-        run: ls
+      - name: Show file
+        run: ls coverage
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
