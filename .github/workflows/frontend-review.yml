@@ -24,13 +24,16 @@ jobs:
       - name: Run Jest
         run: npm test
       - name: Show file
-        run: ls
+        if: always()
+        run: ls coverage
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
         with:
           junit_files: "junit.xml"
       - name: Upload Artifect
         uses: actions/upload-artifact@v3
+        if: always()
         with:
           name: test_report
           path: junit.xml
