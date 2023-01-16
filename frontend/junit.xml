@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="12" failures="1" errors="0" time="4.057">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2023-01-16T07:55:24" time="1.733" tests="9">
+    <testcase classname=" Render title" name=" Render title" time="0.048">
+    </testcase>
+    <testcase classname=" Render save changes button" name=" Render save changes button" time="0.019">
+    </testcase>
+    <testcase classname=" Render email directory header" name=" Render email directory header" time="0.015">
+    </testcase>
+    <testcase classname=" Render resume directory header" name=" Render resume directory header" time="0.013">
+    </testcase>
+    <testcase classname=" Render file directory fields" name=" Render file directory fields" time="0.019">
+    </testcase>
+    <testcase classname=" Render update directory buttons" name=" Render update directory buttons" time="0.01">
+    </testcase>
+    <testcase classname=" Render internship period header" name=" Render internship period header" time="0.011">
+    </testcase>
+    <testcase classname=" Render internship period field" name=" Render internship period field" time="0.075">
+    </testcase>
+    <testcase classname=" Render update period button" name=" Render update period button" time="0.063">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2023-01-16T07:55:24" time="1.93" tests="3">
+    <testcase classname=" Render footer" name=" Render footer" time="0.069">
+    </testcase>
+    <testcase classname=" Render navbar" name=" Render navbar" time="0.028">
+    </testcase>
+    <testcase classname=" Navbar Routing" name=" Navbar Routing" time="0.164">
+      <failure>TestingLibraryElementError: Unable to find an element with the text: Upload Data. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+     initialEntries=
+    /Main
+    &lt;div
+      class=&quot;App&quot;
+    &gt;
+      &lt;div
+        class=&quot;App d-flex&quot;
+      &gt;
+        &lt;div
+          style=&quot;flex: 1 1 auto; display: flex; flex-flow: column; overflow-y: hidden;&quot;
+        &gt;
+          &lt;div
+            style=&quot;position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;&quot;
+          /&gt;
+          &lt;div&gt;
+            &lt;nav
+              class=&quot;navbar navbar-expand navbar-dark bg-dark fixed-top&quot;
+            &gt;
+              &lt;div
+                class=&quot;container-fluid&quot;
+                style=&quot;padding: 0px 0px 0px 50px;&quot;
+              &gt;
+                &lt;a
+                  class=&quot;navbar-brand&quot;
+                  href=&quot;/Main&quot;
+                  style=&quot;font-size: 30px;&quot;
+                &gt;
+                  IAS
+                &lt;/a&gt;
+                &lt;div
+                  class=&quot;justify-content-end navbar-nav&quot;
+                  style=&quot;padding: 0px 50px 0px 0px;&quot;
+                &gt;
+                  &lt;a
+                    class=&quot;nav-link active&quot;
+                    data-rr-ui-event-key=&quot;/Upload_Data&quot;
+                    href=&quot;/Upload_Data&quot;
+                  &gt;
+                     
+                    &lt;svg
+                      fill=&quot;currentColor&quot;
+                      height=&quot;1em&quot;
+                      stroke=&quot;currentColor&quot;
+                      stroke-width=&quot;0&quot;
+                      viewBox=&quot;0 0 24 24&quot;
+                      width=&quot;1em&quot;
+                      xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                    &gt;
+                      &lt;path
+                        d=&quot;M11 15h2V9h3l-4-5-4 5h3z&quot;
+                      /&gt;
+                      &lt;path
+                        d=&quot;M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z&quot;
+                      /&gt;
+                    &lt;/svg&gt;
+                     UPLOAD
+                  &lt;/a&gt;
+                  &lt;a
+                    class=&quot;nav-link&quot;
+                    data-rr-ui-event-key=&quot;/Match_Student&quot;
+                    href=&quot;/Match_Student&quot;
+                  &gt;
+                    &lt;svg
+                      fill=&quot;currentColor&quot;
+                      height=&quot;1em&quot;
+                      stroke=&quot;currentColor&quot;
+                      stroke-width=&quot;0&quot;
+                      viewBox=&quot;0 0 24 24&quot;
+                      width=&quot;1em&quot;
+                      xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                    &gt;
+                      &lt;path
+                        d=&quot;M16.604 11.048a5.67 5.67 0 0 0 .751-3.44c-.179-1.784-1.175-3.361-2.803-4.44l-1.105 1.666c1.119.742 1.8 1.799 1.918 2.974a3.693 3.693 0 0 1-1.072 2.986l-1.192 1.192 1.618.475C18.951 13.701 19 17.957 19 18h2c0-1.789-.956-5.285-4.396-6.952z&quot;
+                      /&gt;
+                      &lt;path
+                        d=&quot;M9.5 12c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2zm1.5 7H8c-3.309 0-6 2.691-6 6v1h2v-1c0-2.206 1.794-4 4-4h3c2.206 0 4 1.794 4 4v1h2v-1c0-3.309-2.691-6-6-6z&quot;
+                      /&gt;
+                    &lt;/svg&gt;
+                     MATCH STUDENTS
+                  &lt;/a&gt;
+                  &lt;a
+                    class=&quot;nav-link&quot;
+                    data-rr-ui-event-key=&quot;/Prepare_Email&quot;
+                    href=&quot;/Prepare_Email&quot;
+                  &gt;
+                    &lt;svg
+                      fill=&quot;currentColor&quot;
+                      height=&quot;1em&quot;
+                      stroke=&quot;currentColor&quot;
+                      stroke-width=&quot;0&quot;
+                      viewBox=&quot;0 0 24 24&quot;
+                      width=&quot;1em&quot;
+                      xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                    &gt;
+                      &lt;path
+                        d=&quot;M20 4H6c-1.103 0-2 .897-2 2v5h2V8l6.4 4.8a1.001 1.001 0 0 0 1.2 0L20 8v9h-8v2h8c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-7 6.75L6.666 6h12.668L13 10.75z&quot;
+                      /&gt;
+                      &lt;path
+                        d=&quot;M2 12h7v2H2zm2 3h6v2H4zm3 3h4v2H7z&quot;
+                      /&gt;
+                    &lt;/svg&gt;
+                     PREPARE EMAILS
+                  &lt;/a&gt;
+                  &lt;a
+                    class=&quot;nav-link&quot;
+                    data-rr-ui-event-key=&quot;/Settings&quot;
+                    href=&quot;/Settings&quot;
+                  &gt;
+                    &lt;svg
+                      fill=&quot;currentColor&quot;
+                      height=&quot;1em&quot;
+                      stroke=&quot;currentColor&quot;
+                      stroke-width=&quot;0&quot;
+                      viewBox=&quot;0 0 24 24&quot;
+                      width=&quot;1em&quot;
+                      xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                    &gt;
+                      &lt;path
+                        d=&quot;M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z&quot;
+                      /&gt;
+                      &lt;path
+                        d=&quot;m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z&quot;
+                      /&gt;
+                    &lt;/svg&gt;
+                     SETTINGS
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/nav&gt;
+          &lt;/div&gt;
+          &lt;div
+            class=&quot;container-fluid m-0 bg&quot;
+            style=&quot;padding-top: 180px; text-align: initial;&quot;
+          &gt;
+            &lt;div
+              class=&quot;row content&quot;
+              style=&quot;padding-left: 50px; padding-bottom: 80px;&quot;
+            &gt;
+              &lt;div
+                class=&quot;col&quot;
+              &gt;
+                &lt;div
+                  id=&quot;title&quot;
+                &gt;
+                  Easy Student Internship 
+                  &lt;br /&gt;
+                   Management
+                &lt;/div&gt;
+                &lt;p&gt;
+                  One-stop application to manage all internship matters.
+                &lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;row content&quot;
+            &gt;
+              &lt;div
+                class=&quot;col-3&quot;
+                style=&quot;border: 1px solid black; padding: 50px;&quot;
+              &gt;
+                &lt;p
+                  style=&quot;text-align: center;&quot;
+                &gt;
+                  Upload current internship data in excel format for internship students and companies.
+                &lt;/p&gt;
+                &lt;a
+                  class=&quot;btn btn-dark&quot;
+                  href=&quot;/Upload_Data&quot;
+                  role=&quot;button&quot;
+                  style=&quot;padding: 15px; width: 100%;&quot;
+                  tabindex=&quot;0&quot;
+                &gt;
+                  UPLOAD FILE
+                &lt;/a&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;col-3&quot;
+                style=&quot;border: 1px solid black; padding: 50px;&quot;
+              &gt;
+                &lt;p
+                  style=&quot;text-align: center;&quot;
+                &gt;
+                  Match students to their prospective companies and manage their status of internship.
+                &lt;/p&gt;
+                &lt;a
+                  class=&quot;btn btn-dark&quot;
+                  href=&quot;/Match_Student&quot;
+                  role=&quot;button&quot;
+                  style=&quot;padding: 15px; width: 100%;&quot;
+                  tabindex=&quot;0&quot;
+                &gt;
+                  MATCH STUDENT
+                &lt;/a&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;col-3&quot;
+                style=&quot;border: 1px solid black; padding: 50px;&quot;
+              &gt;
+                &lt;p
+                  style=&quot;text-align: center;&quot;
+                &gt;
+                  Prepare emails for students attached to their prospective companies with their resumes.
+                &lt;/p&gt;
+                &lt;a
+                  class=&quot;btn btn-dark&quot;
+                  href=&quot;/Prepare_Email&quot;
+                  role=&quot;button&quot;
+                  style=&quot;padding: 15px; width: 100%;&quot;
+                  tabindex=&quot;0&quot;
+                &gt;
+                  PREPARE EMAILS
+                &lt;/a&gt;
+              &lt;/div&gt;
+              &lt;div
+                class=&quot;col-3&quot;
+                style=&quot;border: 1px solid black; padding: 50px;&quot;
+              &gt;
+                &lt;p
+                  style=&quot;text-align: center;&quot;
+                &gt;
+                  Make changes to the file directories of emails , resumes and semester date range.
+                &lt;/p&gt;
+                &lt;a
+                  class=&quot;btn btn-dark&quot;
+                  href=&quot;/Settings&quot;
+                  role=&quot;button&quot;
+                  style=&quot;padding: 15px; width: 100%;&quot;
+                  tabindex=&quot;0&quot;
+                &gt;
+                  SETTINGS
+                &lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div
+        id=&quot;footer&quot;
+        style=&quot;text-align: center; background: rgb(33, 37, 41); color: rgb(255, 255, 255); padding: 15px;&quot;
+      &gt;
+        IAS 
+        2023
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+    at Object.getElementError (C:\Users\User\user\School\DOP\Asgn 1\ias-svc\frontend\node_modules\@testing-library\dom\dist\config.js:37:19)
+    at C:\Users\User\user\School\DOP\Asgn 1\ias-svc\frontend\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
+    at C:\Users\User\user\School\DOP\Asgn 1\ias-svc\frontend\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
+    at getByText (C:\Users\User\user\School\DOP\Asgn 1\ias-svc\frontend\node_modules\@testing-library\dom\dist\query-helpers.js:95:19)
+    at Object.&lt;anonymous&gt; (C:\Users\User\user\School\DOP\Asgn 1\ias-svc\frontend\src\__tests__\components\App.test.js:47:17)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

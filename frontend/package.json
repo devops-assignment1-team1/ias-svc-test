@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "bootstrap": "^5.2.3",
     "history": "^5.3.0",
+    "jest-junit": "^15.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
@@ -21,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false --coverage",
+    "test": "react-scripts test --watchAll=false --coverage --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
