@@ -3,7 +3,7 @@ name: Frontend Review
 on:
   push:
     paths:
-      - "backend/**"
+      - "frontend/**"
       - ".github/workflows/frontend-review.yml"
 
 jobs:
@@ -19,9 +19,9 @@ jobs:
           node-version: 16.13.1
       - name: Install Node Packages
         run: |
-          cd backend
+          cd frontend
           npm install
       - name: Run Jest
         run: |
-          cd backend
+          cd frontend
           npm test
