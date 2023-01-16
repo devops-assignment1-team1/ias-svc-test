@@ -15,4 +15,4 @@ jobs:
       - name: Run Frontend Review
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: frontend-review.yaml
+          workflow: frontend-review.yml
