@@ -3,16 +3,108 @@ name: Pull Request Review
 on:
   pull_request:
     branches: [main]
-  workflow_dispatch:
-
+    types: [opened, synchronize, reopened]
 jobs:
-  run-frontend-unit-test:
+  frontend-review:
+    runs-on: ubuntu-latest
+    name: Frontend Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Install Node Packages
+        run: |
+          cd frontend
+          npm install
+      - name: Run Jest
+        run: |
+          cd frontend
+          npm test
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          junit_files: "frontend/junit.xml"
+      - name: Upload Artifect
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: frontend_test_report
+          path: frontend/junit.xml
+  backend-review:
+    runs-on: ubuntu-latest
+    name: Backend Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Install Node Packages
+        run: |
+          cd backend
+          npm install
+      - name: Run Jest
+        run: |
+          cd backend
+          npm test
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          junit_files: "backend/junit.xml"
+      - name: Upload Artifect
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: backend_test_report
+          path: backend/junit.xml
+  sql-review:
+    runs-on: ubuntu-latest
+    name: SQL Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Network
+        run: docker network create -d bridge ias_net
+      - name: Build the Docker image
+        run: |
+          cd database
+          docker-compose up --build -d
+      - name: Unit Test (Student)
+        run: |
+          cd database
+          while ! docker-compose logs | grep "ready for connections"; do
+            echo "Waiting for initdb to complete..."
+            sleep 5
+          done
+          sleep 5
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;" | grep -q "S12345670A"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: Unit Test (Company)
+        run: |
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM company;" | grep -q "Company A"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: Unit Test (System Settings)
+        run: |
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM system_settings;" | grep -q "EMAIL_DIRECTORY"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+  sonarcloud:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: List Directory
-        run: ls -a
-      - name: Run Frontend Review
-        uses: peter-evans/repository-dispatch@v2
         with:
-          event-type: my-event
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
