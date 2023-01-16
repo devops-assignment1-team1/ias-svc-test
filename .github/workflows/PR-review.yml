@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: List Directory
-        run: ls -a ./
+        run: ls -a ./.github
       - name: Run Frontend Review
         uses: ./.github/workflows/frontend-review.yml
