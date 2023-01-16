@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="12" failures="1" errors="0" time="4.057">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2023-01-16T07:55:24" time="1.733" tests="9">
-    <testcase classname=" Render title" name=" Render title" time="0.048">
+<testsuites name="jest tests" tests="12" failures="1" errors="0" time="6.851">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2023-01-16T11:50:08" time="3.168" tests="9">
+    <testcase classname=" Render title" name=" Render title" time="0.087">
     </testcase>
-    <testcase classname=" Render save changes button" name=" Render save changes button" time="0.019">
+    <testcase classname=" Render save changes button" name=" Render save changes button" time="0.06">
     </testcase>
-    <testcase classname=" Render email directory header" name=" Render email directory header" time="0.015">
+    <testcase classname=" Render email directory header" name=" Render email directory header" time="0.045">
     </testcase>
-    <testcase classname=" Render resume directory header" name=" Render resume directory header" time="0.013">
+    <testcase classname=" Render resume directory header" name=" Render resume directory header" time="0.043">
     </testcase>
-    <testcase classname=" Render file directory fields" name=" Render file directory fields" time="0.019">
+    <testcase classname=" Render file directory fields" name=" Render file directory fields" time="0.058">
     </testcase>
-    <testcase classname=" Render update directory buttons" name=" Render update directory buttons" time="0.01">
+    <testcase classname=" Render update directory buttons" name=" Render update directory buttons" time="0.028">
     </testcase>
-    <testcase classname=" Render internship period header" name=" Render internship period header" time="0.011">
+    <testcase classname=" Render internship period header" name=" Render internship period header" time="0.033">
     </testcase>
-    <testcase classname=" Render internship period field" name=" Render internship period field" time="0.075">
+    <testcase classname=" Render internship period field" name=" Render internship period field" time="0.137">
     </testcase>
-    <testcase classname=" Render update period button" name=" Render update period button" time="0.063">
+    <testcase classname=" Render update period button" name=" Render update period button" time="0.108">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2023-01-16T07:55:24" time="1.93" tests="3">
-    <testcase classname=" Render footer" name=" Render footer" time="0.069">
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2023-01-16T11:50:08" time="3.538" tests="3">
+    <testcase classname=" Render footer" name=" Render footer" time="0.106">
     </testcase>
-    <testcase classname=" Render navbar" name=" Render navbar" time="0.028">
+    <testcase classname=" Render navbar" name=" Render navbar" time="0.042">
     </testcase>
-    <testcase classname=" Navbar Routing" name=" Navbar Routing" time="0.164">
+    <testcase classname=" Navbar Routing" name=" Navbar Routing" time="0.207">
       <failure>TestingLibraryElementError: Unable to find an element with the text: Upload Data. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
 Ignored nodes: comments, script, style

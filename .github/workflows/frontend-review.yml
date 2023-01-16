@@ -20,12 +20,13 @@ jobs:
         with:
           node-version: 16.13.1
       - name: Install Node Packages
-        run: npm install
+        run: |
+          cd frontend
+          npm install
       - name: Run Jest
-        run: npm test
-      - name: Show file
-        if: always()
-        run: ls
+        run: |
+          cd frontend
+          npm test
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
@@ -35,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: test_report
+          name: frontend_test_report
           path: frontend/junit.xml
