@@ -13,6 +13,6 @@ jobs:
       - name: List Directory
         run: ls -a
       - name: Run Frontend Review
-        uses: benc-uk/workflow-dispatch@v1
+        uses: peter-evans/repository-dispatch@v2
         with:
-          workflow: frontend-review.yml
+          event-type: my-event
