@@ -8,7 +8,7 @@ jobs:
   run-frontend-unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: List Directory
         run: ls
       - name: Run Frontend Review
