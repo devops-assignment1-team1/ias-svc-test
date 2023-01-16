@@ -30,10 +30,10 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
         with:
-          junit_files: "junit.xml"
+          junit_files: "/frontend/junit.xml"
       - name: Upload Artifect
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: test_report
-          path: junit.xml
+          path: /frontend/junit.xml
