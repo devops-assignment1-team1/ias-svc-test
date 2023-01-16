@@ -13,6 +13,6 @@ jobs:
       - name: List Directory
         run: ls -a
       - name: Run Frontend Review
-        run: gh workflow run frontend-review.yml
+        run: gh workflow list
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
