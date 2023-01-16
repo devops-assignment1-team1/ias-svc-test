@@ -10,7 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Frontend Review
-
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js v16.13.1
@@ -19,11 +21,9 @@ jobs:
           node-version: 16.13.1
       - name: Install Node Packages
         run: |
-          cd frontend
           npm install
       - name: Run Jest
         run: |
-          cd frontend
           npm test
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
