@@ -5,8 +5,7 @@ on:
     paths:
       - "frontend/**"
       - ".github/workflows/frontend-review.yml"
-  repository_dispatch:
-    types: [frontend-review]
+  workflow_dispatch:
 
 jobs:
   build:
