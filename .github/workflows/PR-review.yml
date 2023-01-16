@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: none
+          path: .github
       - name: List Directory
         run: ls
       - name: Run Frontend Review
