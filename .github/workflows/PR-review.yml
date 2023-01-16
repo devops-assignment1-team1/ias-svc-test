@@ -13,3 +13,5 @@ jobs:
         run: ls -a
       - name: Run Frontend Review
         run: gh workflow run ./github/workflows/frontend-review.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
