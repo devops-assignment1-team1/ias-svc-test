@@ -9,9 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: .github
       - name: List Directory
-        run: ls
+        run: ls -a
       - name: Run Frontend Review
         uses: ./.github/workflows/frontend-review.yml
