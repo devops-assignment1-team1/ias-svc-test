@@ -12,4 +12,4 @@ jobs:
       - name: List Directory
         run: ls -a .github/workflows
       - name: Run Frontend Review
-        uses: ./.github/workflows/frontend-review.yml
+        uses: /.github/workflows/frontend-review.yml
