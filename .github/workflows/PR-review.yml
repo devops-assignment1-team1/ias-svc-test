@@ -1,0 +1,12 @@
+name: Pull Request Review
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-frontend-unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Frontend Review
+        uses: ./.github/workflows/frontend-review.yml
