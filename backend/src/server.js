@@ -17,8 +17,11 @@ const studentRouter = require("./routes/students")
 app.use('/api/v1/students', studentRouter)
 
 // router for companies
-const companyRouter = require('./routes/companies')
+const companyRouter = require('./routes/companies/GET')
 app.use('/api/v1/companies', companyRouter)
+
+const upsertCompaniesRouter = require('./routes/companies/POST');
+app.use('/api/v1/companies/upload', upsertCompaniesRouter);
 
 // router for email
 const emailRouter = require('./routes/email')
