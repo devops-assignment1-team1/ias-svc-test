@@ -19,20 +19,20 @@ function UploadData() {
   const [isDisabled, setDisabled] = useState(true); // save changes
 
   // Init form data to store files
-  const [formData, setFormData] = useState(new FormData())
-
+  const [studentFormData, setStudentFormData] = useState(new FormData())
+  const [companyFormData, setCompanyFormData] = useState(new FormData())
 
   // file change when user selects file
   const handleStudentFileChange = (event, key) => {
     formData.append(key, event)
-    setFormData(formData)
+    setStudentFormData(studentFormData)
     setStudentFileName(event.name)
     handleCloseStudentFile()
   }
 
   const handleCompanyFileChange = (event, key) => {
     formData.append(key, event)
-    setFormData(formData)
+    setCompanyFormData(companyFormData)
     setCompanyFileName(event.name)
     handleCloseCompanyFile()
   }
@@ -46,7 +46,8 @@ function UploadData() {
 
   const [data, setData] = useState(null);
   const [internshipPeriod, setInternshipPeriod] = useState(null)
-  // Get internship period to display
+
+  // get internship period to display
   React.useEffect(() => {
     fetch(PORT + "/api/v1/settings")
     .then(response => {
@@ -108,17 +109,31 @@ function UploadData() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "multipart/form-data");
 
-    var requestOptions = {
+    var studentRequestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: formData,
+      body: studentFormData,
       redirect: 'follow'
     };
 
-    fetch(PORT + "/api/v1/settings", requestOptions)
+    var companyRequestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: companyFormData,
+      redirect: 'follow'
+    };
+
+    // upload student data
+    fetch(PORT + "/api/v1/students/upload", studentRequestOptions)
       .then(response => response.text())
-      .then(result => toast.success("Successfully Updated Settings"))
-      .catch(error => toast.error("Failed Updating Settings"));
+      .then(result => toast.success("Success updating student data"))
+      .catch(error => toast.error("Failed updating student data"));
+
+    // upload company data
+    fetch(PORT + "/api/v1/companies/upload", companyRequestOptions)
+      .then(response => response.text())
+      .then(result => toast.success("Success updating company data"))
+      .catch(error => toast.error("Failed updating company data"));
   }
 
   // // Disabled state 
@@ -145,10 +160,10 @@ function UploadData() {
           </div>
         </div>
 
-        {/* Save Changes */}
+        {/* Save Changes
         <div className="col justify-content-center align-self-center" style={{ textAlign: "end", paddingRight: "50px" }}>
           <Button id="save-btn" variant="dark" style={{ padding: "15px 30px" }} disabled={isDisabled} onClick={handleSave}>SAVE CHANGES</Button>
-        </div>
+        </div> */}
       </div>
       <hr />
 
@@ -162,7 +177,7 @@ function UploadData() {
             <BiFolderOpen /> {studentFileName}
           </Card>
 
-          {/* Button to Upload */}
+          Button to Upload
           <div className="col-2 justify-content-center align-self-center">
             <Button variant="dark" style={{ padding: "15px", width: "-webkit-fill-available" }} onClick={handleStudentClick}>UPLOAD FILE</Button>
           </div>
