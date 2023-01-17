@@ -8,8 +8,8 @@ const fs = require('fs');
 
 // get internship period
 async function getInternshipPeriod() {
-    const response = await fetch("http://localhost:5222/api/v1/settings")
-    const data = await response.json();
+    const response = await axios.get("http://localhost:5222/api/v1/settings");
+    const data = response.data
     const internship_period = data.find(setting => setting.setting_type === 'INTERNSHIP_PERIOD').setting_value;
     return internship_period
 }

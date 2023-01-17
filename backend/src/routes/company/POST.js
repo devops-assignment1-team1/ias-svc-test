@@ -5,11 +5,12 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
+const axios = require('axios')
 
 // get internship period
 async function getInternshipPeriod() {
-    const response = await fetch("http://localhost:5222/api/v1/settings")
-    const data = await response.json();
+    const response = await axios.get("http://localhost:5222/api/v1/settings");
+    const data = response.data
     const internship_period = data.find(setting => setting.setting_type === 'INTERNSHIP_PERIOD').setting_value;
     return internship_period
 }
@@ -27,8 +28,10 @@ const storage = multer.diskStorage({
     }
 })
 
+const upload = multer ({ storage })
+
 // upload company file to directory
-const POST = router.post('/upload', storage.single('company-file'), (req, res, next) => {
+const POST = router.post('/upload', upload.single('company-file'), (req, res, next) => {
 
     // check file if valid
     if(!req.file) return res.status(400).send('File not found.');

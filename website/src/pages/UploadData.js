@@ -24,14 +24,14 @@ function UploadData() {
 
   // file change when user selects file
   const handleStudentFileChange = (event, key) => {
-    formData.append(key, event)
+    studentFormData.append(key, event)
     setStudentFormData(studentFormData)
     setStudentFileName(event.name)
     handleCloseStudentFile()
   }
 
   const handleCompanyFileChange = (event, key) => {
-    formData.append(key, event)
+    companyFormData.append(key, event)
     setCompanyFormData(companyFormData)
     setCompanyFileName(event.name)
     handleCloseCompanyFile()
@@ -83,7 +83,7 @@ function UploadData() {
   const handleStudentClick = () => {
     setShowStudentFile(true);
     setStudentFileName("")
-    setFormData(new FormData())
+    setStudentFormData(new FormData())
   }
 
   const handleCloseStudentFile = () => {
@@ -95,7 +95,7 @@ function UploadData() {
   const handleCompanyClick = () => {
     setShowCompanyFile(true);
     setCompanyFileName("")
-    setFormData(new FormData())
+    setCompanyFormData(new FormData())
   }
   const handleCloseCompanyFile = () => {
     setShowCompanyFile(false);
@@ -177,7 +177,7 @@ function UploadData() {
             <BiFolderOpen /> {studentFileName}
           </Card>
 
-          Button to Upload
+          {/* Button to Upload */}
           <div className="col-2 justify-content-center align-self-center">
             <Button variant="dark" style={{ padding: "15px", width: "-webkit-fill-available" }} onClick={handleStudentClick}>UPLOAD FILE</Button>
           </div>
