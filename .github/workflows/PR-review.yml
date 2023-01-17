@@ -98,6 +98,7 @@ jobs:
           fi
   sonarcloud:
     runs-on: ubuntu-latest
+    name: SonarCloud
     steps:
       - uses: actions/checkout@v2
         with:
@@ -108,3 +109,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  send-email:
+    runs-on: ubuntu-latest
+    name: Send Message
+    needs: [sql-review, frontend-review, backend-review, sonarcloud]
+    steps:
+      - name: send telegram message on PR
+        uses: appleboy/telegram-action@master
+        with:
+          to: "-854857525"
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Pull request made to main.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
