@@ -118,7 +118,7 @@ jobs:
       - name: send telegram message on PR
         uses: appleboy/telegram-action@master
         with:
-          to: "-854857525"
+          to: "-827526484"
           token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
           message: |
             Pull request made to main.
