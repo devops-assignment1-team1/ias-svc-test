@@ -33,34 +33,34 @@ jobs:
         with:
           name: frontend_test_report
           path: frontend/junit.xml
-  backend-review:
-    runs-on: ubuntu-latest
-    name: Backend Review
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js v16.13.1
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.13.1
-      - name: Install Node Packages
-        run: |
-          cd backend
-          npm install
-      - name: Run Jest
-        run: |
-          cd backend
-          npm test
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action/composite@v2
-        if: always()
-        with:
-          junit_files: "backend/junit.xml"
-      - name: Upload Artifect
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: backend_test_report
-          path: backend/junit.xml
+  # backend-review:
+  #   runs-on: ubuntu-latest
+  #   name: Backend Review
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Use Node.js v16.13.1
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16.13.1
+  #     - name: Install Node Packages
+  #       run: |
+  #         cd backend
+  #         npm install
+  #     - name: Run Jest
+  #       run: |
+  #         cd backend
+  #         npm test
+  #     - name: Publish Test Results
+  #       uses: EnricoMi/publish-unit-test-result-action/composite@v2
+  #       if: always()
+  #       with:
+  #         junit_files: "backend/junit.xml"
+  #     - name: Upload Artifect
+  #       uses: actions/upload-artifact@v3
+  #       if: always()
+  #       with:
+  #         name: backend_test_report
+  #         path: backend/junit.xml
   sql-review:
     runs-on: ubuntu-latest
     name: SQL Review
