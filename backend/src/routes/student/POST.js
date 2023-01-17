@@ -5,7 +5,6 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
-const path = require('path');
 
 // get internship period
 async function getInternshipPeriod() {
@@ -24,12 +23,12 @@ const storage = multer.diskStorage({
         cb(null, `./internshipData/${internshipPeriod}`);
     },
     filename: (rweq, file, cb) => {
-        cb(null, `company-${Date.now()}`)
+        cb(null, `student-${Date.now()}`)
     }
 })
 
 // upload company file to directory
-const POST = router.post('/upload', storage.single('company-file'), (req, res, next) => {
+const POST = router.post('/upload', storage.single('student-file'), (req, res, next) => {
 
     // check file if valid
     if(!req.file) return res.status(400).send('File not found.');
