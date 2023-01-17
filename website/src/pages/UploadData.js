@@ -44,6 +44,27 @@ function UploadData() {
   const studentFileInput = React.createRef()
   const companyFileInput = React.createRef()
 
+  const [data, setData] = useState(null);
+  const [internshipPeriod, setInternshipPeriod] = useState(null)
+  // Get internship period to display
+  React.useEffect(() => {
+    fetch(PORT + "/api/v1/settings")
+    .then(response => {
+      if(!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then(data => {
+      if (data && data.length > 0) {
+        setData(data)
+        const internshipPeriod = data.filter(setting => setting.setting_type === 'INTERNSHIP_PERIOD')[0].setting_value;
+        setInternshipPeriod(internshipPeriod)
+      }
+    })  
+    .catch(error => console.log(error))
+  }, [])
+
   const handleConfirmStudentFile = (event) => {
     var input = document.getElementById('StudentUploadFile')
     console.log(input.files[0]);
@@ -119,6 +140,9 @@ function UploadData() {
         <div className="col">
           <Title>Upload Data</Title>
           <p>Upload the corresponding excel files for the current semester here.</p>
+          <div className="row">
+            <p>Internship Period: {internshipPeriod}</p>
+          </div>
         </div>
 
         {/* Save Changes */}
