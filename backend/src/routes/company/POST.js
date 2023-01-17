@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, `./internshipData/${internshipPeriod}`);
     },
-    filename: (rweq, file, cb) => {
+    filename: (req, file, cb) => {
         cb(null, `company-${Date.now()}`)
     }
 })
@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer ({ storage })
 
 // upload company file to directory
-const POST = router.post('/upload', upload.single('company-file'), (req, res, next) => {
+const POST = router.post('/upload', upload.single(`company-file`), (req, res, next) => {
 
     // check file if valid
     if(!req.file) return res.status(400).send('File not found.');
