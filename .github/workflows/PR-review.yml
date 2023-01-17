@@ -112,7 +112,8 @@ jobs:
   send-email:
     runs-on: ubuntu-latest
     name: Send Message
-    needs: [sql-review, frontend-review, backend-review, sonarcloud]
+    # needs: [sql-review, frontend-review, backend-review, sonarcloud]
+    needs: [sql-review, frontend-review, sonarcloud]
     steps:
       - name: send telegram message on PR
         uses: appleboy/telegram-action@master
