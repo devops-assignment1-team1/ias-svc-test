@@ -8,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { BiFolderOpen } from "react-icons/bi";
-import axios from 'axios';
 
 // Import style
 import "../components/Settings/Settings.css"
@@ -164,10 +163,9 @@ function UploadData() {
           <p>
             Upload the corresponding excel files for the current semester here.
           </p>
-          <div className="row">
-            <p id='internship-period-header'>Internship Period: </p>
-            <b id='internship-period'>{internshipPeriod ? internshipPeriod : "Not set"}</b>
-          </div>
+          <p id='internship-header'>
+            Internship Period: {internshipPeriod ? internshipPeriod : "Not set"}
+          </p>
         </div>
 
         {/* Save Changes

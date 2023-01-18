@@ -1,6 +1,5 @@
-import {render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Button } from 'bootstrap';
 import UploadData from '../../pages/UploadData';
 
 test('Render title', async () => {
@@ -14,21 +13,12 @@ test('Render title', async () => {
 })
 
 test('Render internship period header', async () => {
-    // ARRANGE
-    const screen = render(<UploadData />);
+  // ARRANGE
+  const screen = render(<UploadData />);
 
-    // ASSERT
-    const internshipHeader = screen.container.querySelector('#internship-period-header');
-    expect(internshipHeader).toHaveTextContent('Internship Period:');
-})
-
-test('Render internship period', async () => {
-    // ARRANGE
-    const screen = render(<UploadData />);
-
-    // ASSERT
-    const period = screen.container.querySelector('#internship-period');
-    expect(period).toBeInTheDocument();
+  // ASSERT
+  const internshipHeader = screen.container.querySelector('#internship-header');
+  expect(internshipHeader).toBeInTheDocument();
 })
 
 test('Render student data header', async () => {
@@ -65,15 +55,6 @@ test('Render upload file buttons', async () => {
   // ASSERT
   const uploadFileButtons = screen.getAllByText('UPLOAD FILE')
   expect(uploadFileButtons.length).toBe(2)
-})
-
-test('Render internship period header', async () => {
-  // ARRANGE
-  const screen = render(<UploadData />);
-
-  // ASSERT
-  const internshipHeader = screen.container.querySelector('#internship-header');
-  expect(internshipHeader).toHaveTextContent('Internship Period');
 })
 
 //TODO:: Functional tests
