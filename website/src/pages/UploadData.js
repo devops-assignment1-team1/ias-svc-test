@@ -40,8 +40,8 @@ function UploadData() {
     handleCloseCompanyFile();
   };
 
-  const [studentFileName, setStudentFileName] = useState("");
-  const [companyFileName, setCompanyFileName] = useState("");
+  const [studentFileName, setStudentFileName] = useState("File Directory");
+  const [companyFileName, setCompanyFileName] = useState("File Directory");
 
   // file inputs
   const studentFileInput = React.createRef();
@@ -165,8 +165,8 @@ function UploadData() {
             Upload the corresponding excel files for the current semester here.
           </p>
           <div className="row">
-            <p>Internship Period: </p>
-            <b>{internshipPeriod}</b>
+            <p id='internship-period-header'>Internship Period: </p>
+            <b id='internship-period'>{internshipPeriod ? internshipPeriod : "Not set"}</b>
           </div>
         </div>
 
