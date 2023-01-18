@@ -1,6 +1,6 @@
 const express = require("express");
-const PUT = require("./PUT");
+const POST = require("./POST");
 const GET = require("./GET");
 const app = express();
 
-app.use(PUT,GET);
+app.use(POST,GET);
