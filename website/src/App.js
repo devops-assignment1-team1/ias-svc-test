@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 
 // Import pages
 import Main from './pages/Main'
-import UploadData from './pages/UploadData'
+import UploadData from './pages/FinalUploadData'
 import MatchStudent from './pages/MatchStudent'
 import PrepareEmail from './pages/PrepareEmail'
 import Settings from './pages/Settings'

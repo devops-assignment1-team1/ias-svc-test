@@ -3,17 +3,16 @@ const returnSuccess = require("../../utils");
 const returnError = require("../../utils");
 const express = require("express");
 const router = express.Router();
-const multer = require('multer');
+//const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const axios = require('axios')
+const axios = require('axios');
 
-
-// enable files upload
-router.use(fileUpload({
-    createParentPath: true
-}));
-
+const fileUpload = require("express-fileupload");
+const cors = require("cors");
+router.use(express.json())
+router.use(cors())
+router.use(fileUpload())
 
 // get internship period
 async function getInternshipPeriod() {
@@ -29,60 +28,24 @@ getInternshipPeriod().then(period => {
     internshipPeriod = period
 })
 
-// configure storage
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        if (!fs.existsSync(path.join(__dirname, './internshipData'))) {
-            fs.mkdirSync(path.join(__dirname, './internshipData'))
-        }
-
-        if(!fs.existsSync(__dirname, `./internshipData/${internshipPeriod}`)) {
-            fs.mkdirSync(__dirname, `./internshipData/${internshipPeriod}`)
-        }
-        
-        cb(null, `./internshipData/${internshipPeriod}`)
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.o))
+// upload student file to directory
+const POST = router.post("/upload", (req, res)=>{
+    console.log(internshipPeriod)
+    console.log(req.files.student);
+    const filename = req.files.student.name;
+    const file = req.files.student
+    const uploadPath = path.join(__dirname, 'internshipData', internshipPeriod)
+    if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
     }
-})
-
-const upload = multer ({ 
-    storage: storage,
-    fileFilter: function(req, file, cb) {
-        if (!file.originalname.match(/\.(csv|xlsx)$/)) {
-            return cb(new Error('Please upload an excel file'))
+    file.mv(path.join(uploadPath, filename),(err)=>{
+        if(err){
+            return res.send(err);
         }
-        cb(null, true)
-    }
-})
-
-
-
-// // upload company file to directory
-// const POST = router.post('/upload', upload.single('student-file'), (req, res, next) => {    
-
-//     console.log(req.body)
-//     // check file if valid
-//     if (!req.file) {
-//         console.log(req.body["student-file"])
-//         return res.status(400).send('Error uploading file.');
-//     }
-//     else if (!req.file) {
-//         console.log("error1")
-//         return res.status(200).send('Success uploading file.');
-//     }
-//     else if (!req.file) return res.status(500).json(error);
-
-// });
-
-// upload company file to directory
-const POST = router.post("/upload", async(req,res)=>{
-    
-    console.log(req)
-    console.log(req.body);
-    console.log(req.file);
-    res.json({ message: "Successfully uploaded files" });
+        else {
+            res.json({ message: "Successfully uploaded files" });
+        }
+    })
 })
 
 module.exports = POST;  

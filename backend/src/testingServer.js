@@ -6,7 +6,7 @@ const app = express();
 app.use(bp.json());
 app.use(cors());
 
-const port = 5222
+const port = 5223
 
 app.get('/api/v1', (req, res) => {
     res.send('Hello World');
