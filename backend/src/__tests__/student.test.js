@@ -1,5 +1,5 @@
 const supertest = require('supertest');
-const app = require("../testingServer.js");
+const app = require("../server.js");
 const request = supertest(app);
 const fs = require('fs');
 const path = require('path');
@@ -13,7 +13,7 @@ describe('student test suite', () => {
     test('Post /students', async() => {
         const file = fs.createReadStream(path.join(__dirname ,'..', "/routes/student/internshipData/12/12/2022-12/1/2023/gaf.csv"));
         request
-          .post("http://localhost:5223/api/v1/students/upload")
+          .post("http://localhost:5222/api/v1/students/upload")
           .attach("student", file)
           .expect(200)
           .end((err, res) => {

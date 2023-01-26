@@ -137,6 +137,7 @@ function UploadData() {
           {/* Button to Upload */}
           <div className="col-2 justify-content-center align-self-center">
             <Button
+              id = "student-upload"
               variant="dark"
               style={{ padding: "15px", width: "-webkit-fill-available" }}
               onClick={handleStudentClick}
@@ -169,6 +170,7 @@ function UploadData() {
           {/* Button to Upload */}
           <div className="col-2 justify-content-center align-self-center">
             <Button
+              id = "company-upload"
               variant="dark"
               style={{ padding: "15px", width: "-webkit-fill-available" }}
               onClick={handleCompanyClick}
@@ -202,7 +204,7 @@ function UploadData() {
 
         {/* Confirm selection button */}
         <Modal.Footer>
-          <Button variant="primary" onClick={(e)=>uploadStudentFile(e)}>
+          <Button id="studentConfirm" variant="primary" onClick={(e)=>uploadStudentFile(e)}>
             CONFIRM
           </Button>
         </Modal.Footer>
@@ -231,7 +233,7 @@ function UploadData() {
 
         {/* Confirm selection button */}
         <Modal.Footer>
-          <Button variant="primary" onClick={(e)=>uploadCompanyFile(e)}>
+          <Button id="companyConfirm"variant="primary" onClick={(e)=>uploadCompanyFile(e)}>
             CONFIRM
           </Button>
         </Modal.Footer>
