@@ -1,4 +1,4 @@
-name: Pull Request Review
+name: Push Tag Review
 
 on:
   push:
