@@ -29,12 +29,6 @@ jobs:
         with:
           name: frontend_test_report
           path: frontend/junit.xml
-      - name: Upload Coverage Test Artifect
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: frontend_coverage
-          path: frontend/coverage
       - name: send telegram message if fail
         uses: appleboy/telegram-action@master
         if: failure()
@@ -85,12 +79,6 @@ jobs:
         with:
           name: backend_test_report
           path: backend/junit.xml
-      - name: Upload Coverage Test Artifect
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: backend_coverage
-          path: backend/coverage
       - name: send telegram message if fail
         uses: appleboy/telegram-action@master
         if: failure()

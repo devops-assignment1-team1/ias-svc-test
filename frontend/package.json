@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false --coverage --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "jest-junit": "^15.0.0",
     "@testing-library/user-event": "^14.4.3",
     "jest-watch-typeahead": "^0.6.5"
   }
