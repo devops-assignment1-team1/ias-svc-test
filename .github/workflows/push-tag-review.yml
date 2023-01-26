@@ -157,12 +157,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: frontend_test_report
-          path: reports/front_end_report.xml
+          path: reports/front_end_report
       - name: Download Backend Unit Test Result
         uses: actions/download-artifact@v3
         with:
           name: backend_test_report
-          path: reports/backend_test_report.xml
+          path: reports/backend_test_report
       - run: ls
       - name: Create Zip
         uses: thedoctor0/zip-release@main
