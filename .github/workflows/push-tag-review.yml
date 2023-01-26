@@ -1,0 +1,40 @@
+name: Pull Request Review
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [integration-test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create Zip
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "zip"
+          filename: "release.zip"
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "release.zip"
+          exclusions: "**/src/__test__"
+  send-email:
+    runs-on: ubuntu-latest
+    name: Send Message
+    needs: [create-release]
+    steps:
+      - name: send telegram message on PR
+        uses: appleboy/telegram-action@master
+        with:
+          to: "-827526484"
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Release ${{ github.ref_name }} made.
+
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}
