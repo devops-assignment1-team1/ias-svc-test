@@ -175,12 +175,13 @@ jobs:
         with:
           name: backend_test_report
           path: backend
+      - run: ls
       - name: Create Zip
         uses: thedoctor0/zip-release@main
         with:
           type: "zip"
           filename: "release.zip"
-          exclusions: "/*src/*__tests__/* /*.github/*"
+          exclusions: "/*src/*__tests__/* /*.github/* /*.git/*"
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
