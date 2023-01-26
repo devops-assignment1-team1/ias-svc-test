@@ -17,11 +17,11 @@ jobs:
         with:
           type: "zip"
           filename: "release.zip"
+          exclusions: "**/src/__test__ .github/"
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: "release.zip"
-          exclusions: "**/src/__test__ .github/"
   send-email:
     runs-on: ubuntu-latest
     name: Send Message
