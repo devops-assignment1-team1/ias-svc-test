@@ -21,7 +21,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "release.zip"
-          exclusions: "**/src/__test__"
   send-email:
     runs-on: ubuntu-latest
     name: Send Message
