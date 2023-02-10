@@ -1,0 +1,358 @@
+name: Pull Request Main Review
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+env:
+  DEV: "-866127553"
+  TECH_LEAD: "-888958849"
+  SCRUM_MASTER: "-650402871"
+  QA: "-787967941"
+  STAKEHOLDER: "-847258903"
+
+jobs:
+  frontend-review:
+    runs-on: ubuntu-latest
+    name: Frontend Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Install Node Packages
+        run: |
+          cd frontend
+          npm install
+      - name: Run Jest
+        run: |
+          cd frontend
+          npm test
+      - name: Upload Test Report Artifect
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: frontend_test_report
+          path: frontend/junit.xml
+      - name: Upload Coverage Test Artifect
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: frontend_coverage
+          path: frontend/coverage
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.DEV }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Frontend unit test failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+  backend-review:
+    runs-on: ubuntu-latest
+    name: Backend Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Network
+        run: docker network create -d bridge ias_net
+      - name: Build the Docker image
+        run: |
+          cd database
+          docker-compose up --build -d
+      - name: Wait for Database
+        run: |
+          cd database
+          while ! docker-compose logs | grep "ready for connections"; do
+            echo "Waiting for initdb to complete..."
+            sleep 5
+          done
+          sleep 5
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Install Node Packages
+        run: |
+          cd backend
+          npm install
+      - name: Run Jest
+        run: |
+          cd backend
+          npm test
+      - name: Upload Artifect
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: backend_test_report
+          path: backend/junit.xml
+      - name: Upload Coverage Test Artifect
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: backend_coverage
+          path: backend/coverage
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.DEV }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Backend unit test failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+  sql-review:
+    runs-on: ubuntu-latest
+    name: SQL Review
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Network
+        run: docker network create -d bridge ias_net
+      - name: Build the Docker image
+        run: |
+          cd database
+          docker-compose up --build -d
+      - name: Unit Test (Student)
+        run: |
+          cd database
+          while ! docker-compose logs | grep "ready for connections"; do
+            echo "Waiting for initdb to complete..."
+            sleep 5
+          done
+          sleep 5
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM student;" | grep -q "S12345670A"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: Unit Test (Company)
+        run: |
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM company;" | grep -q "Company A"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: Unit Test (System Settings)
+        run: |
+          docker exec database_db_1 mysql -uroot -ppassword -Ddb -e "SELECT * FROM system_settings;" | grep -q "EMAIL_DIRECTORY"
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.DEV }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            SQL unit test failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+  publish-unit-test:
+    runs-on: ubuntu-latest
+    name: Publish Unit Test Result
+    needs: [frontend-review, backend-review, sql-review]
+    if: always()
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download Frontend Unit Test Result
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend_test_report
+          path: frontend
+      - name: Download Backend Unit Test Result
+        uses: actions/download-artifact@v3
+        with:
+          name: backend_test_report
+          path: backend
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          check_name: "Unit Test Results"
+          junit_files: "**/junit.xml"
+  sonarcloud:
+    runs-on: ubuntu-latest
+    name: SonarCloud
+    needs: [frontend-review, backend-review, sql-review]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: Download Frontend Coverage Test Result
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend_coverage
+          path: frontend/coverage
+      - name: Download Backend Coverage Test Result
+        uses: actions/download-artifact@v3
+        with:
+          name: backend_coverage
+          path: backend/coverage
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        # Force to fail step after specific time.
+        timeout-minutes: 2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.DEV }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            SonarQube scan failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+  integration-test:
+    runs-on: ubuntu-latest
+    name: Integration Test
+    needs: [sonarcloud]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Install Frontend Node Packages
+        run: |
+          cd frontend
+          npm install
+      - name: Set up Docker Network
+        run: docker network create -d bridge ias_net
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: Install Backend Node Packages
+        run: |
+          cd backend
+          npm install
+      - name: Use Python v3.11
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install Libraries
+        run: |
+          pip install pytest pytest-cov webdriver-manager selenium
+      - name: Check Test Files Existence
+        id: check_test_exists
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "integrationTesting/test_*.py"
+      - name: Test with Pytest
+        if: steps.check_test_exists.outputs.files_exists == 'true'
+        env:
+          PORT: 5221
+        run: |
+          #only run pytest when test_*.py exists
+          cd frontend
+          npm start &
+          sleep 60
+          cd ../database
+          docker-compose down --volumes && docker-compose up --build -d
+          while ! docker-compose logs | grep "ready for connections"; do
+            echo "Waiting for initdb to complete..."
+            sleep 5
+          done
+          sleep 5
+          cd ../backend
+          npm start &
+          cd ../integrationTesting
+          pytest -v -cov --junitxml=test_report.xml
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: always()
+        with:
+          check_name: "Integration Test Results"
+          junit_files: "integrationTesting/test_report.xml"
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.DEV }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Integration test failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.TECH_LEAD }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Integration test failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+      - name: send telegram message if fail
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ env.QA }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Integration test failed.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+  send-message:
+    runs-on: ubuntu-latest
+    name: Send Message
+    needs: [integration-test]
+    steps:
+      - name: send telegram message on PR
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ env.TECH_LEAD }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Pull request made to main.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}
+      - name: send telegram message on PR
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ env.SCRUM_MASTER }}
+          token: "5669366185:AAFQ0KZ61oJxnh73V0Ove0-RiWY4LKbvx5I"
+          message: |
+            Pull request made to main.
+
+            PR Owner: ${{ github.actor }}
+            PR message: ${{ github.event.pull_request.title }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/pull/${{github.event.number}}

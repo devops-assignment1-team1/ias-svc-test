@@ -1,0 +1,25 @@
+name: Backend Review
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - ".github/workflows/backend-review.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Backend Review
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js v16.13.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - run: |
+          cd backend
+          npm install
+      - run: |
+          cd backend
+          npm test
