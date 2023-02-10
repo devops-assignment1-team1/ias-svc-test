@@ -19,43 +19,30 @@ function UploadData() {
   const [showCompanyFile, setShowCompanyFile] = useState(false); // input modal show
   const [isDisabled, setDisabled] = useState(true); // save changes
 
-  // Init form data to store files
-  const [studentFormData, setStudentFormData] = useState(new FormData());
-  const [companyFormData, setCompanyFormData] = useState(new FormData());
-
   // Lincoln file file 
-  const [lincolnFile, setLincolnFile] = useState(null);
+  const [studentFile, setStudentFile] = useState(null);
+  const [companyFile, setCompanyFile] = useState(null);
 
   //lincoln upload function
-  const upload=(e)=>{
+  const uploadStudentFile=(e)=>{
     e.preventDefault()
-    let formData =new FormData();
-    formData.append("student",lincolnFile);
-    axios.post(PORT + "/api/v1/students/upload",formData)
+    let studentformData =new FormData();
+    studentformData.append("student",studentFile);
+    setStudentFileName(studentFile.name)
+    axios.post(PORT + "/api/v1/students/upload",studentformData)
+    handleCloseStudentFile();
+  }
+  const uploadCompanyFile=(e)=>{
+    e.preventDefault()
+    let companyformData =new FormData();
+    companyformData.append("company",companyFile);
+    setCompanyFileName(companyFile.name)
+    axios.post(PORT + "/api/v1/companies/upload",companyformData)
+    handleCloseCompanyFile();
   }
 
-  // file change when user selects file
-  const handleStudentFileChange = (event) => {
-    console.log(event.target.files[0].name)
-    studentFormData.append("student", event.target.files[0],event.target.files[0].name);
-    setStudentFormData(studentFormData);
-    // setStudentFileName(event.target.files[0].name);
-  };
-
-  const handleCompanyFileChange = (event, key) => {
-    companyFormData.append(key, event);
-    setCompanyFormData(companyFormData);
-    setCompanyFileName(event.name);
-    handleCompanySave();
-    handleCloseCompanyFile();
-  };
-
-  const [studentFileName, setStudentFileName] = useState("File Directory");
-  const [companyFileName, setCompanyFileName] = useState("File Directory");
-
-  // file inputs
-  const studentFileInput = React.createRef();
-  const companyFileInput = React.createRef();
+  const [studentFileName, setStudentFileName] = useState("");
+  const [companyFileName, setCompanyFileName] = useState("");
 
   const [data, setData] = useState(null);
   const [internshipPeriod, setInternshipPeriod] = useState(null);
@@ -81,24 +68,12 @@ function UploadData() {
       .catch((error) => console.log(error));
   }, []);
 
-  const handleConfirmStudentFile = (event) => {
-    handleStudentSave();
-    handleCloseStudentFile();
-   // handleStudentFileChange(input.files[0], "student-file");
-  };
-
-  const handleConfirmCompanyFile = (event) => {
-    var input = document.getElementById("CompanyUploadFile");
-    console.log(input.files[0]);
-    handleCompanyFileChange(input.files[0], "company-file");
-  };
 
   // Student file show/hide handler +
   // Student file text update
   const handleStudentClick = () => {
     setShowStudentFile(true);
     setStudentFileName("");
-    setStudentFormData(new FormData());
   };
 
   const handleCloseStudentFile = () => {
@@ -110,78 +85,10 @@ function UploadData() {
   const handleCompanyClick = () => {
     setShowCompanyFile(true);
     setCompanyFileName("");
-    setCompanyFormData(new FormData());
   };
   const handleCloseCompanyFile = () => {
     setShowCompanyFile(false);
   };
-
-  async function handleStudentSave() {
-    // const studentRequestOptions = {
-    //   method: "POST",
-    //   body: studentFormData,
-    //   headers: {
-    //     "Content-Type": "multipart/form-data;",
-    //   },  
-    //    redirect: "follow",
-    // };
-
-    // upload student data
-    // fetch(PORT + "/api/v1/students/upload", studentRequestOptions)
-    //   .then((response) => response.text())
-    //   .then((result) => toast.success("Success updating student data"))
-    //   .catch((error) => toast.error("Failed updating student data"));
-
-    var string = `${PORT}/api/v1/students`;
-    string = string.toString()
-    console.log(string)
-
-    if (typeof string === 'string') { 
-      console.log(`${PORT}`+'/api/v1/students' )
-     }
-     else{
-      console.log("no")
-     }
-      try {
-        const response = await axios.post("http://localhost:5222/api/v1/students", studentFormData, {
-          headers: {
-          'Content-Type': 'multipart/form-data'
-          },
-          });
-          console.log(response.data);
-      } catch (error) {
-          console.error(error);
-      }
-  }
-
-  async function handleCompanySave() {
-    var companyRequestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: companyFormData,
-      redirect: "follow",
-    };
-
-    // upload company data
-    fetch(PORT + "/api/v1/companies/upload", companyRequestOptions)
-      .then((response) => response.text())
-      .then((result) => toast.success("Success updating company data"))
-      .catch((error) => toast.error("Failed updating company data"));
-  }
-
-  // // Disabled state
-  // useEffect(() => {
-  //   const handleDisabledSave = () => {
-  //     if (formData.getAll('file').length === 0) {
-  //       setDisabled(true);
-  //     } else {
-  //       setDisabled(false);
-  //     }
-  //   }
-  //   handleDisabledSave();
-  // }, [studentFile.file, companyFile.file]);
 
   return (
     <div
@@ -195,9 +102,10 @@ function UploadData() {
           <p>
             Upload the corresponding excel files for the current semester here.
           </p>
-          <p id='internship-header'>
-            Internship Period: {internshipPeriod ? internshipPeriod : "Not set"}
-          </p>
+          <div className="row">
+            <p>Internship Period: </p>
+            <b>{internshipPeriod}</b>
+          </div>
         </div>
 
         {/* Save Changes
@@ -229,6 +137,7 @@ function UploadData() {
           {/* Button to Upload */}
           <div className="col-2 justify-content-center align-self-center">
             <Button
+              id = "student-upload"
               variant="dark"
               style={{ padding: "15px", width: "-webkit-fill-available" }}
               onClick={handleStudentClick}
@@ -261,6 +170,7 @@ function UploadData() {
           {/* Button to Upload */}
           <div className="col-2 justify-content-center align-self-center">
             <Button
+              id = "company-upload"
               variant="dark"
               style={{ padding: "15px", width: "-webkit-fill-available" }}
               onClick={handleCompanyClick}
@@ -287,14 +197,14 @@ function UploadData() {
             name="student"
             defaultValue={studentFileName}
             onChange={(e) => {
-              setLincolnFile(e.target.files[0])
+              setStudentFile(e.target.files[0])
             }}
           />
         </Modal.Body>
 
         {/* Confirm selection button */}
         <Modal.Footer>
-          <Button variant="primary" onClick={(e)=>upload(e)}>
+          <Button id="studentConfirm" variant="primary" onClick={(e)=>uploadStudentFile(e)}>
             CONFIRM
           </Button>
         </Modal.Footer>
@@ -313,15 +223,17 @@ function UploadData() {
             id="CompanyUploadFile"
             formEncType='multipart/form-data'
             type="file"
-            name="company-file"
+            name="company"
             defaultValue={companyFileName}
-            ref={companyFileInput}
+            onChange={(e) => {
+              setCompanyFile(e.target.files[0])
+            }}
           />
         </Modal.Body>
 
         {/* Confirm selection button */}
         <Modal.Footer>
-          <Button variant="primary" onClick={handleConfirmCompanyFile}>
+          <Button id="companyConfirm"variant="primary" onClick={(e)=>uploadCompanyFile(e)}>
             CONFIRM
           </Button>
         </Modal.Footer>
